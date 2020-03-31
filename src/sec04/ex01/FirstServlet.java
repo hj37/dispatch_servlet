@@ -1,4 +1,4 @@
-package sec03.ex01;
+package sec04.ex01;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,15 +21,12 @@ import javax.servlet.http.HttpServletResponse;
 		//응답할 데이터의 MIME-TYPE 설정 
 		response.setContentType("text/html;charset=UTF-8");
 		
-		//디스패치 방식의 재요청(포워딩) 기술
+		//웹브라우저에서 요청한 request객체영역 내부에.. 
+		//address의 값으로 "서울시 성북구"값을 바인딩(저장)함 
+		request.setAttribute("address", "서울시 성북구");
 		
-		//request객체의 getRequestDispatcher()메소드 호출시...
-		//재요청할(포워딩할) 두 번째 서블릿의 매핑주소를 전달하면
-		//두번째 서블릿의 매핑주소를 저장하고 있는 RequestDispatcher인터페이스 타입의 자식객체ApplicationDispatcher를 반환함. 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("second?name=lee");
-		
-		//실제 두 번째 서블릿 재요청시... 기존에 존재했던 request객체영역과 response객체 영역전달
-		dispatcher.forward(request,response);
+		//두번째 서블릿으로 request객체에 저장된 값을 전송 하기 위해.. redirect방식으로 재요청(포워딩)함.
+		response.sendRedirect("second");
 	}
 
 }
